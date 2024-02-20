@@ -1,5 +1,6 @@
 "use client"
 
+import { editTodo } from "@/api";
 import { Task } from "@/types";
 import React, { useState } from 'react';
 
@@ -16,6 +17,7 @@ const Todo = ({ todo }: Todoprops) => {
     };
 
     const handleSave = async () => {
+        await editTodo(todo.id, editTaskTitle);
         setIsEditing(false);
     };
 
@@ -29,6 +31,9 @@ const Todo = ({ todo }: Todoprops) => {
                 type="text" 
                 className="mr-2 py-1 px-2 rounded border-gray-400 border"
                 value={editTaskTitle}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => 
+                    setEditingTaskTitle(e.target.value)
+                }
                 /> 
                 ) : (
                  <span>{todo.text}</span> 
