@@ -1,6 +1,6 @@
 "use client"
 
-import { editTodo } from "@/api";
+import { deleteTodo, editTodo } from "@/api";
 import { Task } from "@/types";
 import React, { useEffect, useRef, useState } from 'react';
 
@@ -28,6 +28,10 @@ const Todo = ({ todo }: Todoprops) => {
     const handleSave = async () => {
         await editTodo(todo.id, editTaskTitle);
         setIsEditing(false);
+    };
+
+    const handleDelete = async () => {
+        await deleteTodo(todo.id);
     };
 
   return (
@@ -60,7 +64,9 @@ const Todo = ({ todo }: Todoprops) => {
                     </button>
                 )}
               
-              <button className="text-red-500">Delete</button>
+                     <button className="text-red-500" onClick={handleDelete}>
+                        Delete
+                     </button>
             </div>
    </li>
   );
