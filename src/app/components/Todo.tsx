@@ -1,7 +1,6 @@
 "use client"
 
 import { Task } from "@/types";
-import { Input } from "postcss";
 import React, { useState } from 'react';
 
 interface Todoprops {
@@ -10,11 +9,15 @@ interface Todoprops {
 
 const Todo = ({ todo }: Todoprops) => {
     const [isEditing, setIsEditing] = useState(false);
+    const [editTaskTitle, setEditingTaskTitle] = useState(todo.text);
 
     const handleEdit = async () => {
-        setIdEditing(true);
-    }
+        setIsEditing(true);
+    };
 
+    const handleSave = async () => {
+        setIsEditing(false);
+    };
 
   return (
     <li 
@@ -25,16 +28,23 @@ const Todo = ({ todo }: Todoprops) => {
                 <input 
                 type="text" 
                 className="mr-2 py-1 px-2 rounded border-gray-400 border"
+                value={editTaskTitle}
                 /> 
                 ) : (
                  <span>{todo.text}</span> 
                 )}
            
-           
             <div>
-              <button className="text-green-500 mr-3" onClick={handleEdit}>
-                Edit
-              </button>
+                {isEditing ? (
+                    <button className="text-blue-500 mr-3" onClick={handleSave}>
+                       save
+                    </button>
+                ) : (
+                    <button className="text-green-500 mr-3" onClick={handleEdit}>
+                       edit  
+                    </button>
+                )}
+              
               <button className="text-red-500">Delete</button>
             </div>
    </li>
