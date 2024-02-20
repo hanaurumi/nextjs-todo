@@ -2,13 +2,16 @@
 
 import { editTodo } from "@/api";
 import { Task } from "@/types";
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 
 interface Todoprops {
     todo: Task;
 }
 
 const Todo = ({ todo }: Todoprops) => {
+    const ref = useRef<HTMLInputElement>(null);
+
+
     const [isEditing, setIsEditing] = useState(false);
     const [editTaskTitle, setEditingTaskTitle] = useState(todo.text);
 
